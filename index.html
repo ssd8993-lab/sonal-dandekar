@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sonal Dandekar — Technical Program Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Satoshi via Fontshare CDN -->
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --navy:      #0f2044;
+      --navy-mid:  #1a3260;
+      --teal:      #14b8a6;
+      --teal-dark: #0d9488;
+      --white:     #ffffff;
+      --bg:        #f8fafc;
+      --surface:   #ffffff;
+      --text:      #0f2044;
+      --text-muted:#64748b;
+      --border:    #e2e8f0;
+      --card-bg:   #ffffff;
+      --shadow:    0 4px 24px rgba(15,32,68,0.08);
+      --shadow-lg: 0 8px 40px rgba(15,32,68,0.13);
+      --radius:    14px;
+      --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    [data-theme="dark"] {
+      --bg:        #0a1628;
+      --surface:   #111e35;
+      --text:      #e8f0fe;
+      --text-muted:#94a3b8;
+      --border:    #1e3050;
+      --card-bg:   #152236;
+      --shadow:    0 4px 24px rgba(0,0,0,0.35);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.45);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Satoshi', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      transition: background var(--transition), color var(--transition);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── UTILITIES ──────────────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin-bottom: 56px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 9px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition);
+      border: none;
+    }
+    .btn-primary {
+      background: var(--teal);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(20,184,166,0.35); }
+    .btn-outline {
+      background: transparent;
+      color: var(--teal);
+      border: 2px solid var(--teal);
+    }
+    .btn-outline:hover { background: var(--teal); color: var(--white); transform: translateY(-1px); }
+
+    /* ─── SCROLL ANIMATIONS ──────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+    [data-theme="dark"] .nav-logo { color: var(--teal); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+
+    /* Dark mode toggle */
+    .theme-toggle {
+      width: 44px; height: 24px;
+      background: var(--border);
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: background var(--transition);
+    }
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--white);
+      transition: transform var(--transition), background var(--transition);
+    }
+    [data-theme="dark"] .theme-toggle { background: var(--teal); }
+    [data-theme="dark"] .theme-toggle::after { transform: translateX(20px); }
+
+    .nav-mobile-btn { display: none; background: none; border: none; cursor: pointer; color: var(--text); }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0e3a5c 100%);
+      position: relative;
+      overflow: hidden;
+      padding-top: 64px;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(20,184,166,0.15) 0%, transparent 70%);
+      top: -100px; right: -150px;
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(20,184,166,0.08) 0%, transparent 70%);
+      bottom: -80px; left: -80px;
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 64px;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(20,184,166,0.15);
+      border: 1px solid rgba(20,184,166,0.3);
+      color: var(--teal);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); display: inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .hero-name {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .hero-name .accent { color: var(--teal); }
+    .hero-title {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 20px;
+      letter-spacing: 0.01em;
+    }
+    .hero-tagline {
+      font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      max-width: 520px;
+      line-height: 1.4;
+      margin-bottom: 40px;
+      border-left: 3px solid var(--teal);
+      padding-left: 18px;
+    }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 56px;
+      flex-wrap: wrap;
+    }
+    .hero-stat { text-align: left; }
+    .hero-stat .num {
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .hero-stat .lbl {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+    .hero-avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .hero-avatar {
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(20,184,166,0.3), rgba(20,184,166,0.05));
+      border: 3px solid rgba(20,184,166,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      color: rgba(20,184,166,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+    }
+    .hero-avatar-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px dashed rgba(20,184,166,0.25);
+      animation: spin 20s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── ABOUT ──────────────────────────────────────────────── */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      margin-bottom: 18px;
+      line-height: 1.75;
+    }
+    .about-text p strong { color: var(--text); font-weight: 700; }
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .highlight-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .highlight-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .highlight-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(20,184,166,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .highlight-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .highlight-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ─── COMPETENCIES ───────────────────────────────────────── */
+    #competencies { background: var(--bg); }
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .comp-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+      cursor: default;
+    }
+    .comp-card:hover {
+      border-color: var(--teal);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+    .comp-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .comp-card h3 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    /* ─── PROGRAMS ───────────────────────────────────────────── */
+    #programs { background: var(--surface); }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .program-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .program-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--teal);
+    }
+    .program-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .program-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: rgba(20,184,166,0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+    .program-card h3 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .program-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .program-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .meta-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .program-outcome {
+      background: rgba(20,184,166,0.08);
+      border: 1px solid rgba(20,184,166,0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .program-outcome .outcome-num {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .program-outcome .outcome-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* ─── TIMELINE ───────────────────────────────────────────── */
+    #experience { background: var(--bg); }
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--teal), var(--border));
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 48px;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -29px; top: 6px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--teal);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--teal);
+      transition: transform var(--transition);
+    }
+    .timeline-item:hover .timeline-dot { transform: scale(1.3); }
+    .timeline-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .timeline-role { font-size: 1.1rem; font-weight: 900; }
+    .timeline-company {
+      font-size: 0.95rem;
+      color: var(--teal);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .timeline-date {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .timeline-body {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-top: 12px;
+      box-shadow: var(--shadow);
+    }
+    .timeline-body ul { display: flex; flex-direction: column; gap: 10px; }
+    .timeline-body li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .timeline-body li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-size: 0.7rem;
+      top: 3px;
+    }
+
+    /* ─── TOOLS ──────────────────────────────────────────────── */
+    #tools { background: var(--surface); }
+    .tools-categories { display: flex; flex-direction: column; gap: 36px; }
+    .tools-category h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .tools-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+    }
+    .badge:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .badge-icon { font-size: 1.1rem; }
+
+    /* ─── CONTACT ────────────────────────────────────────────── */
+    #contact { background: var(--bg); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-info h3 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .contact-info p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .contact-link:hover { color: var(--teal); }
+    .contact-link-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+    }
+    .contact-link:hover .contact-link-icon { background: var(--teal); border-color: var(--teal); }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.83rem; font-weight: 700; color: var(--text-muted); }
+    .form-group input,
+    .form-group textarea {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(20,184,166,0.15);
+    }
+    .form-group textarea { min-height: 130px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.85rem;
+    }
+    footer span { color: var(--teal); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-mobile-btn { display: block; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-avatar-wrap { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .section { padding: 64px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────── -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#hero" class="nav-logo">SD</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#competencies">Skills</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+      <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge"><span></span> Open to Opportunities · EU &amp; US</div>
+        <h1 class="hero-name">Sonal<br><span class="accent">Dandekar</span></h1>
+        <p class="hero-title">Technical Program Manager</p>
+        <p class="hero-tagline">Where technical depth meets cross-org alignment</p>
+        <div class="hero-ctas">
+          <a href="#programs" class="btn btn-primary">View My Work ↓</a>
+          <a href="#contact" class="btn btn-outline" style="color:#14b8a6;border-color:#14b8a6;">Get In Touch</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num">6.5+</div>
+            <div class="lbl">Years of Experience</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">3.5</div>
+            <div class="lbl">Years as TPM</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">80%</div>
+            <div class="lbl">Programs On-Time</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">3</div>
+            <div class="lbl">Global Regions Led</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-avatar-wrap">
+        <div class="hero-avatar">
+          <div class="hero-avatar-ring"></div>
+          <img src="sonal_headshot.jpeg" alt="Sonal Dandekar" onerror="this.style.display='none';this.parentElement.innerHTML+='👤';" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Engineering roots.<br>Program delivery at scale.</h2>
+        <p>I'm a cross-functional Program Manager with a foundation in <strong>Electrical Engineering</strong> and 6.5+ years of professional experience — including 3.5 years as a dedicated TPM — delivering complex, multi-team programs at Amazon Robotics. My career path — from hands-on Product Support Engineer to Program Manager II — means I can hold a technical conversation with any engineer in the room while keeping the business outcome clearly in view.</p>
+        <p>I specialize in taking <strong>ambiguous, high-stakes initiatives</strong> and turning them into structured, accountable programs. That means clear governance, honest risk visibility, and the kind of stakeholder alignment that doesn't require a weekly escalation.</p>
+        <p>Currently open to TPM, Senior PM, and Program Lead roles across the <strong>EU and US</strong>, particularly in robotics, enterprise software, and data-intensive domains.</p>
+        <div style="margin-top:28px;">
+          <a href="#contact" class="btn btn-primary">Work With Me →</a>
+        </div>
+      </div>
+      <div class="about-highlights fade-up">
+        <div class="highlight-card">
+          <div class="highlight-icon">🏗️</div>
+          <div>
+            <h4>Engineering Background</h4>
+            <p>M.S. Electrical Engineering (UT Arlington) + B.E. Electronics. Comfortable reviewing system designs, parsing technical specs, and partnering with engineering leads as a true peer.</p>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🚀</div>
+          <div>
+            <h4>Program Delivery at Amazon Scale</h4>
+            <p>Led cross-functional programs spanning product development, reliability engineering, and global operations across NA, EU, and APAC — at Amazon Robotics since 2019.</p>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🤝</div>
+          <div>
+            <h4>Stakeholder Leadership</h4>
+            <p>Built governance frameworks, secured senior management buy-in, and drove alignment across 8+ teams by establishing clear decision-making authority and operating rhythms.</p>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">📊</div>
+          <div>
+            <h4>Data-Driven Execution</h4>
+            <p>Tableau dashboards, SQL/Athena analysis, and structured KPIs aren't afterthoughts — they're the operating system for every program I run.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMPETENCIES ───────────────────────────────────────────── -->
+<section id="competencies" class="section">
+  <div class="container">
+    <p class="section-label">Core Competencies</p>
+    <h2 class="section-title">What I bring to the table</h2>
+    <p class="section-sub">A blend of strategic thinking, technical fluency, and operational rigor — applied across every program I run.</p>
+    <div class="comp-grid">
+      <div class="comp-card fade-up">
+        <span class="comp-icon">🗺️</span>
+        <h3>Roadmap Planning</h3>
+      </div>
+      <div class="comp-card fade-up">
+        <span class="comp-icon">🔄</span>
+        <h3>Agile / Scrum</h3>
+      </div>
+      <div class="comp-card fade-up">
+        <span class="comp-icon">⚠️</span>
+        <h3>Risk & Dependency Management</h3>
+      </div>
+      <div class="comp-card fade-up">
+        <span class="comp-icon">🤝</span>
+        <h3>Cross-functional Leadership</h3>
+      </div>
+      <div class="comp-card fade-up">
+        <span class="comp-icon">🎯</span>
+        <h3>OKR & KPI Alignment</h3>
+      </div>
+      <div class="comp-card fade-up">
+        <span class="comp-icon">🏛️</span>
+        <h3>Governance Framework Design</h3>
+      </div>
+      <div class="comp-card fade-up">
+        <span class="comp-icon">⚙️</span>
+        <h3>System Architecture Understanding</h3>
+      </div>
+      <div class="comp-card fade-up">
+        <span class="comp-icon">📈</span>
+        <h3>Data-Driven Decisions</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROGRAMS & IMPACT ──────────────────────────────────────── -->
+<section id="programs" class="section">
+  <div class="container">
+    <p class="section-label">Programs &amp; Impact</p>
+    <h2 class="section-title">Programs that shipped — and moved the needle</h2>
+    <p class="section-sub">Real programs, real outcomes. Each one started with ambiguity and ended with measurable change.</p>
+    <div class="programs-grid">
+
+      <!-- Card 1 -->
+      <div class="program-card fade-up">
+        <span class="program-tag">Governance · Operations</span>
+        <h3>Cross-Functional Failure Review Board</h3>
+        <p>Architected a Failure Review Board using 8-D methodology across 8+ teams. Defined governance scope, decision-making authority, and dual-meeting cadence — then scaled it from a single product line to organization-wide adoption.</p>
+        <div class="program-meta">
+          <span class="meta-pill">👥 8+ Teams</span>
+          <span class="meta-pill">🏢 Amazon Robotics</span>
+          <span class="meta-pill">📅 2022–2024</span>
+        </div>
+        <div class="program-outcome">
+          <div class="outcome-num">25%</div>
+          <div class="outcome-label">Reduction in investigation cycle time · ↑ Stakeholder accountability</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="program-card fade-up">
+        <span class="program-tag">AI · Reliability · Strategy</span>
+        <h3>AI-Driven Reliability Automation Portfolio</h3>
+        <p>Led structured discovery interviews with 13+ engineers to identify reliability automation gaps. Synthesized findings into a portfolio of 6 AI-driven initiatives, prioritized by business impact, and built the executive use cases that secured Senior Management buy-in.</p>
+        <div class="program-meta">
+          <span class="meta-pill">👥 13+ Engineers</span>
+          <span class="meta-pill">🏢 Amazon Robotics</span>
+          <span class="meta-pill">📅 Q4 2025</span>
+        </div>
+        <div class="program-outcome">
+          <div class="outcome-num">6</div>
+          <div class="outcome-label">AI initiatives scoped &amp; prioritized · Executive buy-in secured</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="program-card fade-up">
+        <span class="program-tag">Process Automation · Global Ops</span>
+        <h3>Change Management Automation — NA / EU / APAC</h3>
+        <p>Designed and deployed an end-to-end change management automation system across three global regions. Built templates, SOPs, and cutover playbooks; led multi-region training with zero execution failures at launch.</p>
+        <div class="program-meta">
+          <span class="meta-pill">🌍 3 Regions</span>
+          <span class="meta-pill">🏢 Amazon Robotics</span>
+          <span class="meta-pill">📅 2020–2021</span>
+        </div>
+        <div class="program-outcome">
+          <div class="outcome-num">0.25 FTE</div>
+          <div class="outcome-label">Weekly efficiency gain · 100% execution success rate</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE TIMELINE ───────────────────────────────────── -->
+<section id="experience" class="section">
+  <div class="container">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">Career timeline</h2>
+    <p class="section-sub">From data analytics consulting to global robotics — a career built on technical depth and program delivery.</p>
+    <div class="timeline">
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-role">Program Manager II</div>
+            <div class="timeline-company">Amazon Robotics · North Reading, MA</div>
+          </div>
+          <span class="timeline-date">Jul 2022 – Present</span>
+        </div>
+        <div class="timeline-body">
+          <ul>
+            <li>Architected cross-functional Failure Review Board scaled org-wide, cutting investigation cycle time by 25%</li>
+            <li>Synthesized 13+ engineer discovery interviews into a 6-initiative AI reliability portfolio; secured executive buy-in</li>
+            <li>Led Teamcenter PLM migration requirements across 3 orgs — 16 user stories, 5 pain points, 40% projected efficiency gain</li>
+            <li>Delivered 80% of planned programs on-time across diverse reliability and NPI workstreams</li>
+            <li>Drove data-driven prioritization using Tableau, SQL, and Athena analytics</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-role">Product Support Engineer</div>
+            <div class="timeline-company">Amazon Robotics · North Reading, MA</div>
+          </div>
+          <span class="timeline-date">Nov 2019 – Jul 2022</span>
+        </div>
+        <div class="timeline-body">
+          <ul>
+            <li>Automated change management process end-to-end — 0.25 FTE weekly gain, 100% execution success across NA/EU/APAC</li>
+            <li>Reduced support ticket volume 58% YoY through self-service tooling and knowledge base optimization</li>
+            <li>Implemented intelligent duplicate ticket detection, cutting repeat issues by 15% YoY</li>
+            <li>Led critical technical system transition including test environment setup and cross-team training</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-role">Senior Analyst</div>
+            <div class="timeline-company">Capgemini · Navi Mumbai, India</div>
+          </div>
+          <span class="timeline-date">Jun 2015 – Jun 2017</span>
+        </div>
+        <div class="timeline-body">
+          <ul>
+            <li>Designed interactive Tableau dashboards to client specifications across multiple delivery engagements</li>
+            <li>Conducted User Acceptance Testing using SQL Server Management Studio (SSMS)</li>
+            <li>Achieved 85% accuracy in debugging and resolving critical production issues</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── TOOLS ─────────────────────────────────────────────────── -->
+<section id="tools" class="section">
+  <div class="container">
+    <p class="section-label">Tools &amp; Stack</p>
+    <h2 class="section-title">The toolkit</h2>
+    <p class="section-sub">Tools I use daily to plan, execute, analyze, and communicate across programs.</p>
+    <div class="tools-categories fade-up">
+      <div class="tools-category">
+        <h3>Program Management</h3>
+        <div class="tools-badges">
+          <div class="badge"><span class="badge-icon">📋</span> Jira</div>
+          <div class="badge"><span class="badge-icon">✅</span> Asana</div>
+          <div class="badge"><span class="badge-icon">📊</span> Smartsheet</div>
+          <div class="badge"><span class="badge-icon">📁</span> MS Project</div>
+          <div class="badge"><span class="badge-icon">📝</span> Notion</div>
+          <div class="badge"><span class="badge-icon">📖</span> Confluence</div>
+        </div>
+      </div>
+      <div class="tools-category">
+        <h3>Analytics &amp; Data</h3>
+        <div class="tools-badges">
+          <div class="badge"><span class="badge-icon">📈</span> Tableau</div>
+          <div class="badge"><span class="badge-icon">📉</span> Power BI</div>
+          <div class="badge"><span class="badge-icon">🗄️</span> SQL / SSMS</div>
+          <div class="badge"><span class="badge-icon">☁️</span> AWS Athena</div>
+          <div class="badge"><span class="badge-icon">🔍</span> QuickSight</div>
+        </div>
+      </div>
+      <div class="tools-category">
+        <h3>Collaboration &amp; Design</h3>
+        <div class="tools-badges">
+          <div class="badge"><span class="badge-icon">📂</span> SharePoint</div>
+          <div class="badge"><span class="badge-icon">📝</span> Quip</div>
+          <div class="badge"><span class="badge-icon">🎨</span> Figma</div>
+          <div class="badge"><span class="badge-icon">💻</span> GitHub</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CERTIFICATIONS ─────────────────────────────────────────── -->
+<section style="background:var(--surface);padding:48px 0;">
+  <div class="container fade-up">
+    <p class="section-label">Certifications</p>
+    <div class="tools-badges" style="margin-top:16px;">
+      <div class="badge"><span class="badge-icon">🎓</span> PMC Level I · Pragmatic Institute (2025)</div>
+      <div class="badge"><span class="badge-icon">🏅</span> Hybrid Certified Program Manager · WGA (2022)</div>
+      <div class="badge"><span class="badge-icon">⚡</span> Certified Scrum Master · WGA (2022)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────────────────────── -->
+<section id="contact" class="section">
+  <div class="container">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's talk programs</h2>
+    <p class="section-sub">Open to TPM, Senior PM, and Program Lead roles in the EU and US. I respond within 24 hours.</p>
+    <div class="contact-grid">
+      <div class="contact-info fade-up">
+        <h3>Get in touch</h3>
+        <p>Whether you're building a TPM function from scratch, scaling a complex product program, or looking for someone who can bridge engineering and business — let's have a conversation.</p>
+        <div class="contact-links">
+          <a href="mailto:ssd.8993@gmail.com" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            ssd.8993@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/sonal-dandekar/" target="_blank" class="contact-link">
+            <div class="contact-link-icon">💼</div>
+            linkedin.com/in/sonal-dandekar
+          </a>
+          <a href="#" class="contact-link">
+            <div class="contact-link-icon">📍</div>
+            Medford, MA · Open to EU &amp; US
+          </a>
+        </div>
+      </div>
+      <form class="contact-form fade-up" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Your Name</label>
+            <input type="text" id="fname" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="femail">Your Email</label>
+            <input type="email" id="femail" name="email" placeholder="jane@company.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fsubject">Subject</label>
+          <input type="text" id="fsubject" name="subject" placeholder="TPM role at Acme Corp" />
+        </div>
+        <div class="form-group">
+          <label for="fmessage">Message</label>
+          <textarea id="fmessage" name="message" placeholder="Tell me about the role or project..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <p>© 2026 <span>Sonal Dandekar</span> · Technical Program Manager · Built with care</p>
+</footer>
+
+<!-- ─── JS ────────────────────────────────────────────────────── -->
+<script>
+  // ── Theme toggle ──
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  html.setAttribute('data-theme', savedTheme);
+  toggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // ── Scroll animations ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── Contact form → mailto ──
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name    = this.name.value;
+    const email   = this.email.value;
+    const subject = this.subject.value || 'Portfolio Inquiry';
+    const message = this.message.value;
+    const body    = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+    window.location.href = `mailto:ssd.8993@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+
+  // ── Nav active highlight on scroll ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
