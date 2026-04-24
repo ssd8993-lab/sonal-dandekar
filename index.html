@@ -350,31 +350,74 @@
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 20px;
     }
+    /* Flip card wrapper */
     .comp-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+      height: 180px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .comp-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
       border-radius: var(--radius);
-      padding: 28px 24px;
+    }
+    .comp-card:hover .comp-card-inner,
+    .comp-card.flipped .comp-card-inner {
+      transform: rotateY(180deg);
+    }
+    /* Front & back shared */
+    .comp-front, .comp-back {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
       text-align: center;
       box-shadow: var(--shadow);
-      transition: all var(--transition);
-      cursor: default;
+      border: 1px solid var(--border);
     }
-    .comp-card:hover {
-      border-color: var(--teal);
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-lg);
+    /* Front face */
+    .comp-front {
+      background: var(--card-bg);
     }
     .comp-icon {
       font-size: 2rem;
       margin-bottom: 14px;
       display: block;
     }
-    .comp-card h3 {
+    .comp-front h3 {
       font-size: 0.92rem;
       font-weight: 700;
       color: var(--text);
       line-height: 1.35;
+    }
+    /* Back face */
+    .comp-back {
+      background: var(--teal);
+      transform: rotateY(180deg);
+      border-color: var(--teal);
+    }
+    .comp-back p {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 1.55;
+    }
+    .comp-back .flip-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 10px;
     }
 
     /* ─── PROGRAMS ───────────────────────────────────────────── */
@@ -780,38 +823,112 @@
     <h2 class="section-title">What I bring to the table</h2>
     <p class="section-sub">A blend of strategic thinking, technical fluency, and operational rigor — applied across every program I run.</p>
     <div class="comp-grid">
+
       <div class="comp-card fade-up">
-        <span class="comp-icon">🗺️</span>
-        <h3>Roadmap Planning</h3>
+        <div class="comp-card-inner">
+          <div class="comp-front">
+            <span class="comp-icon">🗺️</span>
+            <h3>Roadmap Planning</h3>
+          </div>
+          <div class="comp-back">
+            <span class="flip-label">Roadmap Planning</span>
+            <p>Converted undefined technology landscapes into multi-initiative roadmaps — including a 6-initiative AI portfolio with Senior Management buy-in secured Q4 2025.</p>
+          </div>
+        </div>
       </div>
+
       <div class="comp-card fade-up">
-        <span class="comp-icon">🔄</span>
-        <h3>Agile / Scrum</h3>
+        <div class="comp-card-inner">
+          <div class="comp-front">
+            <span class="comp-icon">🔄</span>
+            <h3>Agile / Scrum</h3>
+          </div>
+          <div class="comp-back">
+            <span class="flip-label">Agile / Scrum</span>
+            <p>Ran bi-weekly sprint-style cadences across FRB, NPI, and AI initiatives — keeping 5–7 active investigations at steady state.</p>
+          </div>
+        </div>
       </div>
+
       <div class="comp-card fade-up">
-        <span class="comp-icon">⚠️</span>
-        <h3>Risk & Dependency Management</h3>
+        <div class="comp-card-inner">
+          <div class="comp-front">
+            <span class="comp-icon">⚠️</span>
+            <h3>Risk &amp; Dependency Management</h3>
+          </div>
+          <div class="comp-back">
+            <span class="flip-label">Risk Management</span>
+            <p>Identified ~50% mislabeling rate in AI training data before model deployment — catching a critical quality risk through hands-on verification across 150+ records.</p>
+          </div>
+        </div>
       </div>
+
       <div class="comp-card fade-up">
-        <span class="comp-icon">🤝</span>
-        <h3>Cross-functional Leadership</h3>
+        <div class="comp-card-inner">
+          <div class="comp-front">
+            <span class="comp-icon">🤝</span>
+            <h3>Cross-functional Leadership</h3>
+          </div>
+          <div class="comp-back">
+            <span class="flip-label">Cross-functional Leadership</span>
+            <p>Drove alignment across engineering, product, and operations — from single product lines to org-wide adoption.</p>
+          </div>
+        </div>
       </div>
+
       <div class="comp-card fade-up">
-        <span class="comp-icon">🎯</span>
-        <h3>OKR & KPI Alignment</h3>
+        <div class="comp-card-inner">
+          <div class="comp-front">
+            <span class="comp-icon">🎯</span>
+            <h3>OKR &amp; KPI Alignment</h3>
+          </div>
+          <div class="comp-back">
+            <span class="flip-label">OKR & KPI Alignment</span>
+            <p>Established FRB metrics framework tracking open issue aging, action item completion rates, and investigation throughput — presented monthly to Director-level leadership.</p>
+          </div>
+        </div>
       </div>
+
       <div class="comp-card fade-up">
-        <span class="comp-icon">🏛️</span>
-        <h3>Governance Framework Design</h3>
+        <div class="comp-card-inner">
+          <div class="comp-front">
+            <span class="comp-icon">🏛️</span>
+            <h3>Governance Framework Design</h3>
+          </div>
+          <div class="comp-back">
+            <span class="flip-label">Governance Design</span>
+            <p>Architected the Failure Review Board governance model using 8-D methodology, scaled across 8+ teams.</p>
+          </div>
+        </div>
       </div>
+
       <div class="comp-card fade-up">
-        <span class="comp-icon">⚙️</span>
-        <h3>System Architecture Understanding</h3>
+        <div class="comp-card-inner">
+          <div class="comp-front">
+            <span class="comp-icon">⚙️</span>
+            <h3>System Architecture Understanding</h3>
+          </div>
+          <div class="comp-back">
+            <span class="flip-label">System Architecture</span>
+            <p>Defined technical specifications for AI-powered work order summarization and FRU classification — including data schema, model validation criteria, and integration requirements.</p>
+          </div>
+        </div>
       </div>
+
       <div class="comp-card fade-up">
-        <span class="comp-icon">📈</span>
-        <h3>Data-Driven Decisions</h3>
+        <div class="comp-card-inner">
+          <div class="comp-front">
+            <span class="comp-icon">📈</span>
+            <h3>Data-Driven Decisions</h3>
+          </div>
+          <div class="comp-back">
+            <span class="flip-label">Data-Driven Decisions</span>
+            <p>Built data-driven prioritization framework — surfacing highest-impact failure investigations using field performance trends, disablement data, and cost analysis.</p>
+          </div>
+        </div>
       </div>
+
+    </div>
     </div>
   </div>
 </section>
@@ -1100,6 +1217,11 @@
       document.getElementById('formSuccess').style.display = 'block';
       setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 6000);
     });
+  });
+
+  // ── Competency card flip (tap support for mobile) ──
+  document.querySelectorAll('.comp-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
   });
 
   // ── Nav active highlight on scroll ──
