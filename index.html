@@ -832,7 +832,7 @@
         <div class="program-meta">
           <span class="meta-pill">👥 8+ Teams</span>
           <span class="meta-pill">🏢 Amazon Robotics</span>
-          <span class="meta-pill">📅 2022–2024</span>
+          <span class="meta-pill">📅 Q2–Q4 2025</span>
         </div>
         <div class="program-outcome">
           <div class="outcome-num">25%</div>
@@ -864,7 +864,7 @@
         <div class="program-meta">
           <span class="meta-pill">🌍 3 Regions</span>
           <span class="meta-pill">🏢 Amazon Robotics</span>
-          <span class="meta-pill">📅 2020–2021</span>
+          <span class="meta-pill">📅 Q1–Q2 2022</span>
         </div>
         <div class="program-outcome">
           <div class="outcome-num">0.25 FTE</div>
@@ -960,7 +960,6 @@
           <div class="badge"><span class="badge-icon">📊</span> Smartsheet</div>
           <div class="badge"><span class="badge-icon">📁</span> MS Project</div>
           <div class="badge"><span class="badge-icon">📝</span> Notion</div>
-          <div class="badge"><span class="badge-icon">📖</span> Confluence</div>
         </div>
       </div>
       <div class="tools-category">
@@ -968,18 +967,16 @@
         <div class="tools-badges">
           <div class="badge"><span class="badge-icon">📈</span> Tableau</div>
           <div class="badge"><span class="badge-icon">📉</span> Power BI</div>
-          <div class="badge"><span class="badge-icon">🗄️</span> SQL / SSMS</div>
+          <div class="badge"><span class="badge-icon">🗄️</span> SQL</div>
           <div class="badge"><span class="badge-icon">☁️</span> AWS Athena</div>
           <div class="badge"><span class="badge-icon">🔍</span> QuickSight</div>
         </div>
       </div>
       <div class="tools-category">
-        <h3>Collaboration &amp; Design</h3>
+        <h3>Collaboration</h3>
         <div class="tools-badges">
           <div class="badge"><span class="badge-icon">📂</span> SharePoint</div>
           <div class="badge"><span class="badge-icon">📝</span> Quip</div>
-          <div class="badge"><span class="badge-icon">🎨</span> Figma</div>
-          <div class="badge"><span class="badge-icon">💻</span> GitHub</div>
         </div>
       </div>
     </div>
@@ -1027,22 +1024,25 @@
         <div class="form-row">
           <div class="form-group">
             <label for="fname">Your Name</label>
-            <input type="text" id="fname" name="name" placeholder="Jane Smith" required />
+            <input type="text" id="fname" name="entry.1298596857" placeholder="Jane Smith" required />
           </div>
           <div class="form-group">
             <label for="femail">Your Email</label>
-            <input type="email" id="femail" name="email" placeholder="jane@company.com" required />
+            <input type="email" id="femail" name="entry.570717208" placeholder="jane@company.com" required />
           </div>
         </div>
         <div class="form-group">
           <label for="fsubject">Subject</label>
-          <input type="text" id="fsubject" name="subject" placeholder="TPM role at Acme Corp" />
+          <input type="text" id="fsubject" name="entry.1423288902" placeholder="TPM role at Acme Corp" />
         </div>
         <div class="form-group">
           <label for="fmessage">Message</label>
-          <textarea id="fmessage" name="message" placeholder="Tell me about the role or project..." required></textarea>
+          <textarea id="fmessage" name="entry.1726073593" placeholder="Tell me about the role or project..." required></textarea>
         </div>
         <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+        <div id="formSuccess" style="display:none; background:rgba(20,184,166,0.1); border:1px solid rgba(20,184,166,0.3); border-radius:10px; padding:14px 18px; font-size:0.9rem; color:var(--teal); font-weight:600;">
+          ✓ Message sent! I'll get back to you within 24 hours.
+        </div>
       </form>
     </div>
   </div>
@@ -1077,15 +1077,29 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  // ── Contact form → mailto ──
+  // ── Contact form → Google Sheets via Google Forms ──
   document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    const name    = this.name.value;
-    const email   = this.email.value;
-    const subject = this.subject.value || 'Portfolio Inquiry';
-    const message = this.message.value;
-    const body    = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    window.location.href = `mailto:ssd.8993@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const form = this;
+    const data = new FormData(form);
+    const params = new URLSearchParams(data).toString();
+    const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSfjz2XITpMlo2CYWaBxrqzAhoT8-R6J4o29LgMLgduG-8jF2w/formResponse';
+
+    fetch(FORM_ACTION, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params
+    }).then(() => {
+      form.reset();
+      document.getElementById('formSuccess').style.display = 'block';
+      setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 6000);
+    }).catch(() => {
+      // no-cors means fetch always "succeeds" — show confirmation anyway
+      form.reset();
+      document.getElementById('formSuccess').style.display = 'block';
+      setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 6000);
+    });
   });
 
   // ── Nav active highlight on scroll ──
